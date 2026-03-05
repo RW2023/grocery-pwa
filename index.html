@@ -349,6 +349,252 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
+    .settings-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #1a1a2e;
+      z-index: 50;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .settings-header h2 {
+      font-size: 20px;
+      color: #e94560;
+    }
+
+    .settings-close {
+      background: none;
+      border: none;
+      color: #999;
+      font-size: 28px;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .settings-section {
+      margin-bottom: 16px;
+    }
+
+    .settings-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #533483;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .speaker-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .speaker-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #16213e;
+      border: 1px solid #0f3460;
+      border-radius: 10px;
+      padding: 10px 16px;
+    }
+
+    .speaker-item span {
+      font-size: 16px;
+      text-transform: capitalize;
+    }
+
+    .speaker-remove {
+      background: none;
+      border: none;
+      color: #e94560;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 0 4px;
+      opacity: 0.6;
+    }
+
+    .speaker-remove:hover { opacity: 1; }
+
+    .add-speaker-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .add-speaker-btn {
+      padding: 10px 20px;
+      background: #533483;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .logout-btn {
+      width: 100%;
+      padding: 12px;
+      background: #2a1a1a;
+      border: 1px solid #e94560;
+      color: #e94560;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .stats-bar {
+      padding: 10px 20px;
+      background: #16213e;
+      border-bottom: 1px solid #0f3460;
+      font-size: 13px;
+      color: #777;
+      text-align: center;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+    }
+
+    .stats-bar:active {
+      background: #0f3460;
+    }
+
+    .inventory-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #1a1a2e;
+      z-index: 40;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .inventory-header {
+      padding: 16px 20px;
+      background: #16213e;
+      border-bottom: 1px solid #0f3460;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .inventory-header h2 {
+      font-size: 20px;
+      color: #e94560;
+    }
+
+    .inventory-close {
+      background: none;
+      border: none;
+      color: #999;
+      font-size: 28px;
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .inventory-tabs {
+      display: flex;
+      border-bottom: 1px solid #0f3460;
+    }
+
+    .inventory-tab {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #777;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+
+    .inventory-tab.active {
+      color: #e94560;
+      border-bottom-color: #e94560;
+    }
+
+    .inventory-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+    }
+
+    .inv-item {
+      background: #16213e;
+      border: 1px solid #0f3460;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+    }
+
+    .inv-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .inv-item-name {
+      font-size: 16px;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+
+    .inv-item-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .badge-out {
+      background: #e94560;
+      color: #fff;
+    }
+
+    .badge-low {
+      background: #f0a500;
+      color: #1a1a2e;
+    }
+
+    .badge-ok {
+      background: #533483;
+      color: #ddd;
+    }
+
+    .inv-item-detail {
+      font-size: 12px;
+      color: #777;
+      margin-top: 4px;
+    }
+
+    .dislike-warning {
+      font-size: 12px;
+      color: #e94560;
+      margin-top: 6px;
+      padding: 6px 10px;
+      background: #2a1a1a;
+      border-radius: 6px;
+    }
   </style>
 </head>
 <body>
@@ -369,15 +615,52 @@
     <header>
       <h1>Grocery List</h1>
       <div style="display:flex;align-items:center;gap:10px;">
-        <select id="speaker" class="speaker-select">
-          <option value="ryan">Ryan</option>
-          <option value="veronica">Veronica</option>
-        </select>
-        <button class="settings-btn" onclick="clearSetup()">
+        <select id="speaker" class="speaker-select"></select>
+        <button class="settings-btn" onclick="openSettings()">
           <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96a7.04 7.04 0 00-1.62-.94l-.36-2.54a.48.48 0 00-.48-.41h-3.84a.48.48 0 00-.48.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87a.48.48 0 00.12.61l2.03 1.58c-.04.31-.06.63-.06.94 0 .31.02.63.06.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.26.41.48.41h3.84c.24 0 .44-.17.48-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1112 8.4a3.6 3.6 0 010 7.2z"/></svg>
           </button>
       </div>
     </header>
+
+    <!-- Settings Panel -->
+    <div id="settingsPanel" class="settings-panel" style="display:none;">
+      <div class="settings-header">
+        <h2>Settings</h2>
+        <button class="settings-close" onclick="closeSettings()">&times;</button>
+      </div>
+
+      <div class="settings-section">
+        <label class="settings-label">Family Members</label>
+        <div id="speakerList" class="speaker-list"></div>
+        <div class="add-speaker-row">
+          <input type="text" id="newSpeakerInput" class="text-input" placeholder="Add a name..." style="border-radius:10px;">
+          <button class="add-speaker-btn" onclick="addSpeaker()">Add</button>
+        </div>
+      </div>
+
+      <div class="settings-section" style="margin-top:32px;border-top:1px solid #0f3460;padding-top:20px;">
+        <label class="settings-label" style="color:#777;">Connection</label>
+        <button class="logout-btn" onclick="clearSetup()">Log Out</button>
+        <p style="font-size:12px;color:#555;margin-top:8px;">This will clear your saved login. You will need the family password to reconnect.</p>
+      </div>
+    </div>
+
+    <div id="statsBar" class="stats-bar" style="display:none;" onclick="openInventory()"></div>
+
+    <!-- Inventory Panel -->
+    <div id="inventoryPanel" class="inventory-panel" style="display:none;">
+      <div class="inventory-header">
+        <h2>Inventory</h2>
+        <button class="inventory-close" onclick="closeInventory()">&times;</button>
+      </div>
+      <div class="inventory-tabs">
+        <button class="inventory-tab active" onclick="switchInvTab('all', this)">All Items</button>
+        <button class="inventory-tab" onclick="switchInvTab('dislikes', this)">Dislikes</button>
+      </div>
+      <div id="inventoryList" class="inventory-list">
+        <div class="empty-state"><p>Loading...</p></div>
+      </div>
+    </div>
 
     <div id="listContainer" class="list-container">
       <div class="empty-state">
@@ -407,10 +690,74 @@
     let recognition = null;
     let isListening = false;
 
+    const DEFAULT_SPEAKERS = ['ryan', 'veronica'];
+
+    function getSpeakers() {
+      const stored = localStorage.getItem('grocery_speakers');
+      return stored ? JSON.parse(stored) : DEFAULT_SPEAKERS;
+    }
+
+    function saveSpeakers(list) {
+      localStorage.setItem('grocery_speakers', JSON.stringify(list));
+    }
+
+    function renderSpeakerDropdown() {
+      const select = document.getElementById('speaker');
+      const current = select.value;
+      const speakers = getSpeakers();
+      select.innerHTML = speakers.map(s =>
+        '<option value="' + esc(s) + '"' + (s === current ? ' selected' : '') + '>' + esc(s.charAt(0).toUpperCase() + s.slice(1)) + '</option>'
+      ).join('');
+    }
+
+    function renderSpeakerList() {
+      const list = document.getElementById('speakerList');
+      const speakers = getSpeakers();
+      list.innerHTML = speakers.map(s => `
+        <div class="speaker-item">
+          <span>${esc(s)}</span>
+          ${speakers.length > 1 ? '<button class="speaker-remove" onclick="removeSpeaker(\'' + esc(s) + '\')">&times;</button>' : ''}
+        </div>
+      `).join('');
+    }
+
+    function addSpeaker() {
+      const input = document.getElementById('newSpeakerInput');
+      const name = input.value.trim().toLowerCase();
+      if (!name) return;
+      const speakers = getSpeakers();
+      if (speakers.includes(name)) { toast('Already added'); return; }
+      speakers.push(name);
+      saveSpeakers(speakers);
+      input.value = '';
+      renderSpeakerList();
+      renderSpeakerDropdown();
+      toast('Added ' + name);
+    }
+
+    function removeSpeaker(name) {
+      let speakers = getSpeakers();
+      speakers = speakers.filter(s => s !== name);
+      if (!speakers.length) return;
+      saveSpeakers(speakers);
+      renderSpeakerList();
+      renderSpeakerDropdown();
+    }
+
+    function openSettings() {
+      renderSpeakerList();
+      document.getElementById('settingsPanel').style.display = 'block';
+    }
+
+    function closeSettings() {
+      document.getElementById('settingsPanel').style.display = 'none';
+    }
+
     function init() {
       if (API_KEY) {
         document.getElementById('setup').style.display = 'none';
         document.getElementById('app').style.display = 'flex';
+        renderSpeakerDropdown();
         loadList();
       }
     }
@@ -448,24 +795,66 @@
       location.reload();
     }
 
+    // Stats
+    async function loadStats() {
+      try {
+        const res = await fetch(BASE_URL + '/grocery-stats', {
+          headers: { 'Authorization': API_KEY },
+          signal: AbortSignal.timeout(5000)
+        });
+        const data = await res.json();
+        renderStatsBar(data);
+        return data;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function renderStatsBar(stats) {
+      const bar = document.getElementById('statsBar');
+      if (!stats) { bar.style.display = 'none'; return; }
+      const parts = [];
+      if (stats.total_items > 0) parts.push(stats.total_items + ' items tracked');
+      if (stats.purchased_count > 0) parts.push(stats.purchased_count + ' purchased');
+      if (stats.dislike_count > 0) parts.push(stats.dislike_count + ' disliked');
+      if (parts.length) {
+        bar.textContent = parts.join('  ·  ');
+        bar.style.display = 'block';
+      } else {
+        bar.style.display = 'none';
+      }
+    }
+
     // List
     async function loadList() {
+      // Check stats first -- if list is empty, skip the list call
+      // (n8n times out when Postgres returns zero rows)
+      const stats = await loadStats();
+      if (stats && stats.list_count === 0) {
+        renderList([]);
+        return;
+      }
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
       try {
         const res = await fetch(BASE_URL + '/grocery-list', {
-          headers: { 'Authorization': API_KEY }
+          headers: { 'Authorization': API_KEY },
+          signal: controller.signal
         });
+        clearTimeout(timeout);
         const data = await res.json();
         renderList(data.items || []);
       } catch (e) {
-        document.getElementById('listContainer').innerHTML =
-          '<div class="empty-state"><p>Failed to load list. Check your connection.</p></div>';
+        clearTimeout(timeout);
+        renderList([]);
       }
     }
 
     function renderList(items) {
       const container = document.getElementById('listContainer');
       if (!items.length) {
-        container.innerHTML = '<div class="empty-state"><div class="icon">&#x1F6D2;</div><p>Your list is empty. Tap the mic and say what you need.</p></div>';
+        container.innerHTML = '<div class="empty-state"><div class="icon">&#x1F6D2;</div><p>Your list is empty.<br>Tap the mic and say what you need.</p></div>';
         return;
       }
 
@@ -525,6 +914,7 @@
           document.querySelectorAll('.category-group').forEach(g => {
             if (!g.querySelector('.item-card')) g.remove();
           });
+          loadStats();
         }, 600);
       } catch (e) {
         el.classList.remove('checked');
@@ -592,10 +982,13 @@
     // Text input
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('textInput').addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          sendText();
-        }
+        if (e.key === 'Enter') { e.preventDefault(); sendText(); }
+      });
+      document.getElementById('newSpeakerInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); addSpeaker(); }
+      });
+      document.getElementById('passwordInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); authenticate(); }
       });
     });
 
@@ -632,6 +1025,103 @@
       } catch (e) {
         toast('Network error. Check connection.');
       }
+    }
+
+    // Inventory
+    let inventoryData = [];
+    let currentInvTab = 'all';
+
+    async function openInventory() {
+      document.getElementById('inventoryPanel').style.display = 'flex';
+      document.getElementById('inventoryList').innerHTML = '<div class="empty-state"><p>Loading...</p></div>';
+      try {
+        const res = await fetch(BASE_URL + '/grocery-inventory', {
+          headers: { 'Authorization': API_KEY },
+          signal: AbortSignal.timeout(10000)
+        });
+        const data = await res.json();
+        inventoryData = data.items || [];
+        renderInventory();
+      } catch (e) {
+        document.getElementById('inventoryList').innerHTML = '<div class="empty-state"><p>Could not load inventory.</p></div>';
+      }
+    }
+
+    function closeInventory() {
+      document.getElementById('inventoryPanel').style.display = 'none';
+    }
+
+    function switchInvTab(tab, btn) {
+      currentInvTab = tab;
+      document.querySelectorAll('.inventory-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      renderInventory();
+    }
+
+    function renderInventory() {
+      const list = document.getElementById('inventoryList');
+      let items = inventoryData;
+
+      if (currentInvTab === 'dislikes') {
+        items = items.filter(i => i.dislikes && i.dislikes.length > 0);
+        if (!items.length) {
+          list.innerHTML = '<div class="empty-state"><p>No dislikes recorded yet.<br>Say "we didn\'t like those crackers" to log one.</p></div>';
+          return;
+        }
+      }
+
+      if (!items.length) {
+        list.innerHTML = '<div class="empty-state"><p>No items tracked yet.</p></div>';
+        return;
+      }
+
+      const grouped = {};
+      items.forEach(item => {
+        const cat = item.category || 'uncategorized';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(item);
+      });
+
+      const order = ['produce','dairy','meat','bakery','frozen','pantry','snacks','beverages','household','uncategorized'];
+      const sorted = Object.keys(grouped).sort((a, b) => {
+        const ai = order.indexOf(a), bi = order.indexOf(b);
+        return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+      });
+
+      list.innerHTML = sorted.map(cat => `
+        <div class="category-group">
+          <div class="category-label">${cat}</div>
+          ${grouped[cat].map(item => {
+            const status = item.inventory_status;
+            let badge = '';
+            if (status === 'out') badge = '<span class="inv-item-badge badge-out">Out</span>';
+            else if (status === 'low') badge = '<span class="inv-item-badge badge-low">Low</span>';
+            else badge = '<span class="inv-item-badge badge-ok">Stocked</span>';
+
+            let dislikeHtml = '';
+            if (item.dislikes && item.dislikes.length > 0) {
+              const names = [...new Set(item.dislikes.map(d => d.added_by))];
+              const notes = item.dislikes.map(d => d.notes).filter(n => n && !n.startsWith('Marked as'));
+              dislikeHtml = '<div class="dislike-warning">';
+              dislikeHtml += 'Disliked by ' + names.map(n => esc(n)).join(', ');
+              if (notes.length) dislikeHtml += '<br>' + notes.map(n => '"' + esc(n) + '"').join(', ');
+              dislikeHtml += '</div>';
+            }
+
+            const purchased = item.times_purchased || 0;
+            return `
+              <div class="inv-item">
+                <div class="inv-item-header">
+                  <span class="inv-item-name">${esc(item.name)}</span>
+                  ${badge}
+                </div>
+                <div class="inv-item-detail">Purchased ${purchased} time${purchased !== 1 ? 's' : ''}${item.status_updated_by ? ' · Last updated by ' + esc(item.status_updated_by) : ''}</div>
+                ${dislikeHtml}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `).join('');
     }
 
     // Helpers
