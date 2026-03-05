@@ -1,21 +1,23 @@
 {
-  "name": "Grocery List",
+  "name": "Grocery Tracker",
   "short_name": "Groceries",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1a1a2e",
-  "theme_color": "#1a1a2e",
-  "description": "Voice-powered family grocery list",
+  "background_color": "#f2f3f2",
+  "theme_color": "#53b175",
+  "description": "Voice-powered family grocery list and inventory tracker",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
