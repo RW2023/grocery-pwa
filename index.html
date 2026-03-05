@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>Grocery List</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #1a1a2e;
+      color: #e0e0e0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 16px 20px;
+      background: #16213e;
+      border-bottom: 1px solid #0f3460;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #e94560;
+    }
+
+    .speaker-select {
+      background: #0f3460;
+      color: #e0e0e0;
+      border: 1px solid #533483;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 14px;
+    }
+
+    .setup-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      gap: 16px;
+    }
+
+    .setup-screen h2 {
+      font-size: 22px;
+      color: #e94560;
+    }
+
+    .setup-screen p {
+      color: #999;
+      font-size: 14px;
+      text-align: center;
+      max-width: 300px;
+    }
+
+    .setup-screen input {
+      width: 100%;
+      max-width: 320px;
+      padding: 12px 16px;
+      background: #16213e;
+      border: 1px solid #0f3460;
+      border-radius: 10px;
+      color: #e0e0e0;
+      font-size: 16px;
+    }
+
+    .setup-screen input:focus {
+      outline: none;
+      border-color: #e94560;
+    }
+
+    .setup-screen button {
+      padding: 12px 40px;
+      background: #e94560;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .app-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .list-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+      padding-bottom: 140px;
+    }
+
+    .category-group {
+      margin-bottom: 20px;
+    }
+
+    .category-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #533483;
+      margin-bottom: 8px;
+    }
+
+    .item-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #16213e;
+      border: 1px solid #0f3460;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .item-card.purchased {
+      opacity: 0.4;
+      transform: scale(0.97);
+    }
+
+    .item-check {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid #533483;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .item-check.checked {
+      background: #e94560;
+      border-color: #e94560;
+    }
+
+    .item-check.checked::after {
+      content: '\2713';
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-name {
+      font-size: 16px;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+
+    .item-meta {
+      font-size: 12px;
+      color: #777;
+      margin-top: 2px;
+    }
+
+    .item-qty {
+      font-size: 14px;
+      color: #999;
+      flex-shrink: 0;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #555;
+    }
+
+    .empty-state p {
+      font-size: 16px;
+      margin-top: 12px;
+    }
+
+    .empty-state .icon {
+      font-size: 48px;
+      opacity: 0.3;
+    }
+
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #16213e;
+      border-top: 1px solid #0f3460;
+      padding: 12px 20px;
+      padding-bottom: max(12px, env(safe-area-inset-bottom));
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .transcript-bar {
+      display: none;
+      background: #0f3460;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 14px;
+      color: #ccc;
+      min-height: 36px;
+    }
+
+    .transcript-bar.active {
+      display: block;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .text-input {
+      flex: 1;
+      padding: 12px 16px;
+      background: #0f3460;
+      border: 1px solid #533483;
+      border-radius: 24px;
+      color: #e0e0e0;
+      font-size: 16px;
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: #e94560;
+    }
+
+    .mic-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #e94560;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.1s;
+    }
+
+    .mic-btn:active { transform: scale(0.93); }
+
+    .mic-btn.listening {
+      animation: pulse 1.2s infinite;
+      background: #ff6b81;
+    }
+
+    .mic-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
+    }
+
+    .send-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #533483;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .send-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(233,69,96,0.5); }
+      50% { box-shadow: 0 0 0 12px rgba(233,69,96,0); }
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-80px);
+      background: #533483;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: transform 0.3s;
+      z-index: 100;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .settings-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .settings-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: #777;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #555;
+      border-top-color: #e94560;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Setup Screen -->
+  <div id="setup" class="setup-screen">
+    <h2>Grocery List</h2>
+    <p>Enter the family password to get started. You only need to do this once on each device.</p>
+    <input type="password" id="passwordInput" placeholder="Family password" autocomplete="off">
+    <button onclick="authenticate()">Connect</button>
+    <p id="authError" style="color:#e94560;display:none;"></p>
+  </div>
+
+  <!-- App Screen -->
+  <div id="app" class="app-screen" style="display:none;">
+    <header>
+      <h1>Grocery List</h1>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <select id="speaker" class="speaker-select">
+          <option value="ryan">Ryan</option>
+          <option value="veronica">Veronica</option>
+        </select>
+        <button class="settings-btn" onclick="clearSetup()">
+          <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96a7.04 7.04 0 00-1.62-.94l-.36-2.54a.48.48 0 00-.48-.41h-3.84a.48.48 0 00-.48.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87a.48.48 0 00.12.61l2.03 1.58c-.04.31-.06.63-.06.94 0 .31.02.63.06.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.26.41.48.41h3.84c.24 0 .44-.17.48-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1112 8.4a3.6 3.6 0 010 7.2z"/></svg>
+          </button>
+      </div>
+    </header>
+
+    <div id="listContainer" class="list-container">
+      <div class="empty-state">
+        <div class="icon">&#x1F6D2;</div>
+        <p>Loading...</p>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <div id="transcript" class="transcript-bar"></div>
+      <div class="input-row">
+        <input type="text" id="textInput" class="text-input" placeholder="Type or tap mic..." enterkeyhint="send">
+        <button id="micBtn" class="mic-btn" onclick="toggleMic()">
+          <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+        </button>
+        <button class="send-btn" onclick="sendText()">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const AUTH_URL = 'https://automations.maplelinkservices.com/webhook/grocery-auth';
+    const BASE_URL = 'https://automations.maplelinkservices.com/webhook';
+    let API_KEY = localStorage.getItem('grocery_api_key');
+    let recognition = null;
+    let isListening = false;
+
+    function init() {
+      if (API_KEY) {
+        document.getElementById('setup').style.display = 'none';
+        document.getElementById('app').style.display = 'flex';
+        loadList();
+      }
+    }
+
+    async function authenticate() {
+      const pw = document.getElementById('passwordInput').value.trim();
+      const errEl = document.getElementById('authError');
+      if (!pw) { errEl.textContent = 'Enter the family password'; errEl.style.display = 'block'; return; }
+      errEl.style.display = 'none';
+
+      try {
+        const res = await fetch(AUTH_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pw })
+        });
+        const data = await res.json();
+        if (data.success && data.apiKey) {
+          API_KEY = data.apiKey;
+          localStorage.setItem('grocery_api_key', API_KEY);
+          init();
+        } else {
+          errEl.textContent = 'Wrong password. Try again.';
+          errEl.style.display = 'block';
+        }
+      } catch (e) {
+        errEl.textContent = 'Connection failed. Check your internet.';
+        errEl.style.display = 'block';
+      }
+    }
+
+    function clearSetup() {
+      if (!confirm('Reset connection? You will need to enter the family password again.')) return;
+      localStorage.removeItem('grocery_api_key');
+      location.reload();
+    }
+
+    // List
+    async function loadList() {
+      try {
+        const res = await fetch(BASE_URL + '/grocery-list', {
+          headers: { 'Authorization': API_KEY }
+        });
+        const data = await res.json();
+        renderList(data.items || []);
+      } catch (e) {
+        document.getElementById('listContainer').innerHTML =
+          '<div class="empty-state"><p>Failed to load list. Check your connection.</p></div>';
+      }
+    }
+
+    function renderList(items) {
+      const container = document.getElementById('listContainer');
+      if (!items.length) {
+        container.innerHTML = '<div class="empty-state"><div class="icon">&#x1F6D2;</div><p>Your list is empty. Tap the mic and say what you need.</p></div>';
+        return;
+      }
+
+      const grouped = {};
+      items.forEach(item => {
+        const cat = item.category || 'uncategorized';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(item);
+      });
+
+      const order = ['produce','dairy','meat','bakery','frozen','pantry','snacks','beverages','household','uncategorized'];
+      const sorted = Object.keys(grouped).sort((a, b) => {
+        const ai = order.indexOf(a), bi = order.indexOf(b);
+        return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+      });
+
+      container.innerHTML = sorted.map(cat => `
+        <div class="category-group">
+          <div class="category-label">${cat}</div>
+          ${grouped[cat].map(item => `
+            <div class="item-card" id="item-${item.id}">
+              <div class="item-check" onclick="markPurchased(${item.id}, this)"></div>
+              <div class="item-info">
+                <div class="item-name">${esc(item.name)}</div>
+                <div class="item-meta">Added by ${esc(item.added_by)}</div>
+              </div>
+              <div class="item-qty">${esc(item.quantity)}</div>
+            </div>
+          `).join('')}
+        </div>
+      `).join('');
+    }
+
+    async function markPurchased(id, el) {
+      el.classList.add('checked');
+      el.closest('.item-card').classList.add('purchased');
+
+      try {
+        await fetch(BASE_URL + '/grocery-purchase', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': API_KEY
+          },
+          body: JSON.stringify({
+            shopping_list_id: id,
+            speaker: document.getElementById('speaker').value
+          })
+        });
+        setTimeout(() => {
+          const card = document.getElementById('item-' + id);
+          if (card) card.remove();
+          // check if any items left
+          const cards = document.querySelectorAll('.item-card');
+          if (!cards.length) renderList([]);
+          // clean empty categories
+          document.querySelectorAll('.category-group').forEach(g => {
+            if (!g.querySelector('.item-card')) g.remove();
+          });
+        }, 600);
+      } catch (e) {
+        el.classList.remove('checked');
+        el.closest('.item-card').classList.remove('purchased');
+        toast('Failed to mark purchased');
+      }
+    }
+
+    // Voice
+    function toggleMic() {
+      if (isListening) {
+        recognition.stop();
+        return;
+      }
+
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        toast('Voice not supported in this browser');
+        return;
+      }
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      const transcriptEl = document.getElementById('transcript');
+      const micBtn = document.getElementById('micBtn');
+
+      recognition.onstart = () => {
+        isListening = true;
+        micBtn.classList.add('listening');
+        transcriptEl.classList.add('active');
+        transcriptEl.textContent = 'Listening...';
+      };
+
+      recognition.onresult = (e) => {
+        let text = '';
+        for (let i = 0; i < e.results.length; i++) {
+          text += e.results[i][0].transcript;
+        }
+        transcriptEl.textContent = text;
+      };
+
+      recognition.onend = () => {
+        isListening = false;
+        micBtn.classList.remove('listening');
+        const text = transcriptEl.textContent;
+        if (text && text !== 'Listening...') {
+          sendToBackend(text);
+        }
+        setTimeout(() => transcriptEl.classList.remove('active'), 2000);
+      };
+
+      recognition.onerror = (e) => {
+        isListening = false;
+        micBtn.classList.remove('listening');
+        transcriptEl.classList.remove('active');
+        if (e.error !== 'no-speech') toast('Mic error: ' + e.error);
+      };
+
+      recognition.start();
+    }
+
+    // Text input
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('textInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          sendText();
+        }
+      });
+    });
+
+    function sendText() {
+      const input = document.getElementById('textInput');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      sendToBackend(text);
+    }
+
+    async function sendToBackend(text) {
+      toast('<span class="loading-spinner"></span>Adding items...');
+      try {
+        const res = await fetch(BASE_URL + '/grocery-voice', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': API_KEY
+          },
+          body: JSON.stringify({
+            text: text,
+            speaker: document.getElementById('speaker').value
+          })
+        });
+        const data = await res.json();
+        if (data.success && data.items) {
+          const names = data.items.map(i => i.name).join(', ');
+          toast('Added: ' + names);
+          loadList();
+        } else {
+          toast(data.error || 'Something went wrong');
+        }
+      } catch (e) {
+        toast('Network error. Check connection.');
+      }
+    }
+
+    // Helpers
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.innerHTML = msg;
+      el.classList.add('show');
+      clearTimeout(el._timeout);
+      el._timeout = setTimeout(() => el.classList.remove('show'), 3000);
+    }
+
+    function esc(str) {
+      const d = document.createElement('div');
+      d.textContent = str || '';
+      return d.innerHTML;
+    }
+
+    // Service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+
+    init();
+  </script>
+</body>
+</html>
