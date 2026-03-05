@@ -31,575 +31,275 @@
       align-items: center;
     }
 
-    header h1 {
-      font-size: 20px;
-      font-weight: 600;
-      color: #e94560;
-    }
+    header h1 { font-size: 20px; font-weight: 600; color: #e94560; }
+
+    .header-right { display: flex; align-items: center; gap: 10px; }
 
     .speaker-select {
-      background: #0f3460;
-      color: #e0e0e0;
-      border: 1px solid #533483;
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 14px;
+      background: #0f3460; color: #e0e0e0; border: 1px solid #533483;
+      border-radius: 8px; padding: 6px 10px; font-size: 14px;
     }
 
+    .refresh-btn {
+      background: none; border: none; cursor: pointer; padding: 4px;
+      transition: transform 0.3s;
+    }
+    .refresh-btn svg { width: 18px; height: 18px; fill: #777; }
+    .refresh-btn.spinning svg { animation: spin 0.6s linear; }
+
+    /* Setup screen */
     .setup-screen {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      gap: 16px;
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 40px 20px; gap: 16px;
     }
-
-    .setup-screen h2 {
-      font-size: 22px;
-      color: #e94560;
-    }
-
-    .setup-screen p {
-      color: #999;
-      font-size: 14px;
-      text-align: center;
-      max-width: 300px;
-    }
-
+    .setup-screen h2 { font-size: 22px; color: #e94560; }
+    .setup-screen p { color: #999; font-size: 14px; text-align: center; max-width: 300px; }
     .setup-screen input {
-      width: 100%;
-      max-width: 320px;
-      padding: 12px 16px;
-      background: #16213e;
-      border: 1px solid #0f3460;
-      border-radius: 10px;
-      color: #e0e0e0;
-      font-size: 16px;
+      width: 100%; max-width: 320px; padding: 12px 16px; background: #16213e;
+      border: 1px solid #0f3460; border-radius: 10px; color: #e0e0e0; font-size: 16px;
     }
-
-    .setup-screen input:focus {
-      outline: none;
-      border-color: #e94560;
-    }
-
+    .setup-screen input:focus { outline: none; border-color: #e94560; }
     .setup-screen button {
-      padding: 12px 40px;
-      background: #e94560;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
+      padding: 12px 40px; background: #e94560; color: #fff; border: none;
+      border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer;
     }
 
-    .app-screen {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
+    .app-screen { flex: 1; display: flex; flex-direction: column; }
 
-    .list-container {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px 20px;
-      padding-bottom: 140px;
-    }
+    .list-container { flex: 1; overflow-y: auto; padding: 16px 20px; padding-bottom: 140px; }
 
-    .category-group {
-      margin-bottom: 20px;
-    }
-
+    .category-group { margin-bottom: 20px; }
     .category-label {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #533483;
-      margin-bottom: 8px;
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: #533483; margin-bottom: 8px;
     }
 
     .item-card {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #16213e;
-      border: 1px solid #0f3460;
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-bottom: 8px;
-      transition: opacity 0.3s, transform 0.3s;
+      display: flex; align-items: center; gap: 12px; background: #16213e;
+      border: 1px solid #0f3460; border-radius: 10px; padding: 12px 16px;
+      margin-bottom: 8px; transition: opacity 0.3s, transform 0.3s;
     }
-
-    .item-card.purchased {
-      opacity: 0.4;
-      transform: scale(0.97);
-    }
+    .item-card.purchased { opacity: 0.4; transform: scale(0.97); }
 
     .item-check {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 2px solid #533483;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: background 0.2s, border-color 0.2s;
+      width: 28px; height: 28px; border-radius: 50%; border: 2px solid #533483;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      flex-shrink: 0; transition: background 0.2s, border-color 0.2s;
+    }
+    .item-check.checked { background: #e94560; border-color: #e94560; }
+    .item-check.checked::after { content: '\2713'; color: #fff; font-size: 14px; font-weight: 700; }
+
+    .item-info { flex: 1; }
+    .item-name { font-size: 16px; font-weight: 500; text-transform: capitalize; }
+    .item-meta { font-size: 12px; color: #777; margin-top: 2px; }
+    .item-qty { font-size: 14px; color: #999; flex-shrink: 0; }
+
+    .item-dislike-warning {
+      font-size: 11px; color: #e94560; margin-top: 4px;
+      padding: 3px 8px; background: #2a1a1a; border-radius: 4px; display: inline-block;
     }
 
-    .item-check.checked {
-      background: #e94560;
-      border-color: #e94560;
-    }
+    .empty-state { text-align: center; padding: 60px 20px; color: #555; }
+    .empty-state p { font-size: 16px; margin-top: 12px; }
+    .empty-state .icon { font-size: 48px; opacity: 0.3; }
 
-    .item-check.checked::after {
-      content: '\2713';
-      color: #fff;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .item-info {
-      flex: 1;
-    }
-
-    .item-name {
-      font-size: 16px;
-      font-weight: 500;
-      text-transform: capitalize;
-    }
-
-    .item-meta {
-      font-size: 12px;
-      color: #777;
-      margin-top: 2px;
-    }
-
-    .item-qty {
-      font-size: 14px;
-      color: #999;
-      flex-shrink: 0;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: #555;
-    }
-
-    .empty-state p {
-      font-size: 16px;
-      margin-top: 12px;
-    }
-
-    .empty-state .icon {
-      font-size: 48px;
-      opacity: 0.3;
-    }
-
+    /* Bottom bar */
     .bottom-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #16213e;
-      border-top: 1px solid #0f3460;
-      padding: 12px 20px;
+      position: fixed; bottom: 0; left: 0; right: 0; background: #16213e;
+      border-top: 1px solid #0f3460; padding: 12px 20px;
       padding-bottom: max(12px, env(safe-area-inset-bottom));
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      display: flex; flex-direction: column; gap: 10px;
     }
-
     .transcript-bar {
-      display: none;
-      background: #0f3460;
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 14px;
-      color: #ccc;
-      min-height: 36px;
+      display: none; background: #0f3460; border-radius: 8px;
+      padding: 8px 12px; font-size: 14px; color: #ccc; min-height: 36px;
     }
-
-    .transcript-bar.active {
-      display: block;
-    }
-
-    .input-row {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
+    .transcript-bar.active { display: block; }
+    .input-row { display: flex; gap: 10px; align-items: center; }
 
     .text-input {
-      flex: 1;
-      padding: 12px 16px;
-      background: #0f3460;
-      border: 1px solid #533483;
-      border-radius: 24px;
-      color: #e0e0e0;
-      font-size: 16px;
+      flex: 1; padding: 12px 16px; background: #0f3460; border: 1px solid #533483;
+      border-radius: 24px; color: #e0e0e0; font-size: 16px;
     }
-
-    .text-input:focus {
-      outline: none;
-      border-color: #e94560;
-    }
+    .text-input:focus { outline: none; border-color: #e94560; }
 
     .mic-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #e94560;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: transform 0.1s;
+      width: 48px; height: 48px; border-radius: 50%; background: #e94560;
+      border: none; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0; transition: transform 0.1s;
     }
-
     .mic-btn:active { transform: scale(0.93); }
-
-    .mic-btn.listening {
-      animation: pulse 1.2s infinite;
-      background: #ff6b81;
-    }
-
-    .mic-btn svg {
-      width: 22px;
-      height: 22px;
-      fill: #fff;
-    }
+    .mic-btn.listening { animation: pulse 1.2s infinite; background: #ff6b81; }
+    .mic-btn.processing { background: #533483; pointer-events: none; }
+    .mic-btn svg { width: 22px; height: 22px; fill: #fff; }
 
     .send-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #533483;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+      width: 48px; height: 48px; border-radius: 50%; background: #533483;
+      border: none; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
     }
-
-    .send-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: #fff;
-    }
+    .send-btn svg { width: 20px; height: 20px; fill: #fff; }
+    .send-btn.disabled { opacity: 0.4; pointer-events: none; }
 
     @keyframes pulse {
       0%, 100% { box-shadow: 0 0 0 0 rgba(233,69,96,0.5); }
       50% { box-shadow: 0 0 0 12px rgba(233,69,96,0); }
     }
 
+    /* Toast */
     .toast {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-80px);
-      background: #533483;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: transform 0.3s;
-      z-index: 100;
-      white-space: nowrap;
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-80px);
+      background: #533483; color: #fff; padding: 10px 20px; border-radius: 10px;
+      font-size: 14px; font-weight: 500; transition: transform 0.3s; z-index: 100;
+      max-width: 90vw; text-align: center;
     }
+    .toast.show { transform: translateX(-50%) translateY(0); }
 
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .settings-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-    }
-
-    .settings-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: #777;
-    }
+    .settings-btn { background: none; border: none; cursor: pointer; padding: 4px; }
+    .settings-btn svg { width: 20px; height: 20px; fill: #777; }
 
     .loading-spinner {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid #555;
-      border-top-color: #e94560;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-right: 8px;
-      vertical-align: middle;
+      display: inline-block; width: 16px; height: 16px; border: 2px solid #555;
+      border-top-color: #e94560; border-radius: 50%; animation: spin 0.8s linear infinite;
+      margin-right: 8px; vertical-align: middle;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .settings-panel {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #1a1a2e;
-      z-index: 50;
-      padding: 20px;
-      overflow-y: auto;
+    /* Panels (settings, inventory, admin) */
+    .panel {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: #1a1a2e; z-index: 50; overflow-y: auto;
     }
-
-    .settings-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
+    .panel-flex { display: flex; flex-direction: column; }
+    .panel-header {
+      padding: 16px 20px; background: #16213e; border-bottom: 1px solid #0f3460;
+      display: flex; justify-content: space-between; align-items: center;
     }
-
-    .settings-header h2 {
-      font-size: 20px;
-      color: #e94560;
+    .panel-header h2 { font-size: 20px; color: #e94560; }
+    .panel-close {
+      background: none; border: none; color: #999; font-size: 28px;
+      cursor: pointer; padding: 0 4px;
     }
+    .panel-body { padding: 20px; flex: 1; overflow-y: auto; }
 
-    .settings-close {
-      background: none;
-      border: none;
-      color: #999;
-      font-size: 28px;
-      cursor: pointer;
-      padding: 0 4px;
-    }
-
-    .settings-section {
-      margin-bottom: 16px;
-    }
-
+    .settings-section { margin-bottom: 16px; }
     .settings-label {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #533483;
-      margin-bottom: 12px;
-      display: block;
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: #533483; margin-bottom: 12px; display: block;
     }
 
-    .speaker-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
+    .speaker-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
     .speaker-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #16213e;
-      border: 1px solid #0f3460;
-      border-radius: 10px;
-      padding: 10px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: #16213e; border: 1px solid #0f3460; border-radius: 10px; padding: 10px 16px;
     }
-
-    .speaker-item span {
-      font-size: 16px;
-      text-transform: capitalize;
-    }
-
+    .speaker-item span { font-size: 16px; text-transform: capitalize; }
     .speaker-remove {
-      background: none;
-      border: none;
-      color: #e94560;
-      font-size: 20px;
-      cursor: pointer;
-      padding: 0 4px;
-      opacity: 0.6;
+      background: none; border: none; color: #e94560; font-size: 20px;
+      cursor: pointer; padding: 0 4px; opacity: 0.6;
     }
-
     .speaker-remove:hover { opacity: 1; }
-
-    .add-speaker-row {
-      display: flex;
-      gap: 10px;
-    }
-
+    .add-speaker-row { display: flex; gap: 10px; }
     .add-speaker-btn {
-      padding: 10px 20px;
-      background: #533483;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      flex-shrink: 0;
+      padding: 10px 20px; background: #533483; color: #fff; border: none;
+      border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; flex-shrink: 0;
     }
-
     .logout-btn {
-      width: 100%;
-      padding: 12px;
-      background: #2a1a1a;
-      border: 1px solid #e94560;
-      color: #e94560;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
+      width: 100%; padding: 12px; background: #2a1a1a; border: 1px solid #e94560;
+      color: #e94560; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer;
     }
 
+    /* Stats bar */
     .stats-bar {
-      padding: 10px 20px;
-      background: #16213e;
-      border-bottom: 1px solid #0f3460;
-      font-size: 13px;
-      color: #777;
-      text-align: center;
-      letter-spacing: 0.3px;
-      cursor: pointer;
+      padding: 10px 20px; background: #16213e; border-bottom: 1px solid #0f3460;
+      font-size: 13px; color: #777; text-align: center; letter-spacing: 0.3px; cursor: pointer;
     }
+    .stats-bar:active { background: #0f3460; }
+    .stats-hint { font-size: 11px; color: #555; }
 
-    .stats-bar:active {
-      background: #0f3460;
-    }
-
-    .inventory-panel {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #1a1a2e;
-      z-index: 40;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .inventory-header {
-      padding: 16px 20px;
-      background: #16213e;
-      border-bottom: 1px solid #0f3460;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .inventory-header h2 {
-      font-size: 20px;
-      color: #e94560;
-    }
-
-    .inventory-close {
-      background: none;
-      border: none;
-      color: #999;
-      font-size: 28px;
-      cursor: pointer;
-      padding: 0 4px;
-    }
-
-    .inventory-tabs {
-      display: flex;
-      border-bottom: 1px solid #0f3460;
-    }
-
+    /* Inventory */
+    .inventory-tabs { display: flex; border-bottom: 1px solid #0f3460; }
     .inventory-tab {
-      flex: 1;
-      padding: 10px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 600;
-      color: #777;
-      background: none;
-      border: none;
-      cursor: pointer;
+      flex: 1; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;
+      color: #777; background: none; border: none; cursor: pointer;
       border-bottom: 2px solid transparent;
     }
-
-    .inventory-tab.active {
-      color: #e94560;
-      border-bottom-color: #e94560;
-    }
-
-    .inventory-list {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px 20px;
-    }
+    .inventory-tab.active { color: #e94560; border-bottom-color: #e94560; }
+    .inventory-list { flex: 1; overflow-y: auto; padding: 16px 20px; }
 
     .inv-item {
-      background: #16213e;
-      border: 1px solid #0f3460;
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-bottom: 8px;
+      background: #16213e; border: 1px solid #0f3460; border-radius: 10px;
+      padding: 12px 16px; margin-bottom: 8px;
     }
-
-    .inv-item-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .inv-item-name {
-      font-size: 16px;
-      font-weight: 500;
-      text-transform: capitalize;
-    }
-
-    .inv-item-badge {
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-weight: 600;
-    }
-
-    .badge-out {
-      background: #e94560;
-      color: #fff;
-    }
-
-    .badge-low {
-      background: #f0a500;
-      color: #1a1a2e;
-    }
-
-    .badge-ok {
-      background: #533483;
-      color: #ddd;
-    }
-
-    .inv-item-detail {
-      font-size: 12px;
-      color: #777;
-      margin-top: 4px;
-    }
-
+    .inv-item-header { display: flex; justify-content: space-between; align-items: center; }
+    .inv-item-name { font-size: 16px; font-weight: 500; text-transform: capitalize; }
+    .inv-item-badge { font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 600; }
+    .badge-out { background: #e94560; color: #fff; }
+    .badge-low { background: #f0a500; color: #1a1a2e; }
+    .badge-ok { background: #533483; color: #ddd; }
+    .inv-item-detail { font-size: 12px; color: #777; margin-top: 4px; }
     .dislike-warning {
-      font-size: 12px;
-      color: #e94560;
-      margin-top: 6px;
-      padding: 6px 10px;
-      background: #2a1a1a;
-      border-radius: 6px;
+      font-size: 12px; color: #e94560; margin-top: 6px; padding: 6px 10px;
+      background: #2a1a1a; border-radius: 6px;
     }
+
+    /* Admin */
+    .admin-item {
+      background: #16213e; border: 1px solid #0f3460; border-radius: 10px;
+      padding: 12px 16px; margin-bottom: 8px; display: flex; align-items: center;
+      justify-content: space-between; gap: 12px;
+    }
+    .admin-item-info { flex: 1; }
+    .admin-item-name { font-size: 15px; text-transform: capitalize; }
+    .admin-item-meta { font-size: 12px; color: #777; margin-top: 2px; }
+    .admin-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .admin-btn {
+      padding: 6px 12px; border: none; border-radius: 8px; font-size: 12px;
+      font-weight: 600; cursor: pointer;
+    }
+    .admin-btn-edit { background: #0f3460; color: #e0e0e0; }
+    .admin-btn-delete { background: #3a1a1a; color: #e94560; }
+    .admin-btn-clear { background: #1a2a1a; color: #4ecdc4; }
+    .admin-btn-remove { background: #2a1a2a; color: #f0a500; }
+
+    .admin-tabs { display: flex; border-bottom: 1px solid #0f3460; }
+    .admin-tab {
+      flex: 1; padding: 10px; text-align: center; font-size: 13px; font-weight: 600;
+      color: #777; background: none; border: none; cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+    .admin-tab.active { color: #e94560; border-bottom-color: #e94560; }
+
+    /* Confirm dialog */
+    .confirm-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7);
+      z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    .confirm-box {
+      background: #16213e; border: 1px solid #0f3460; border-radius: 14px;
+      padding: 24px; max-width: 320px; width: 100%; text-align: center;
+    }
+    .confirm-box p { font-size: 16px; margin-bottom: 20px; color: #e0e0e0; }
+    .confirm-box input {
+      width: 100%; padding: 10px; background: #0f3460; border: 1px solid #533483;
+      border-radius: 8px; color: #e0e0e0; font-size: 16px; margin-bottom: 16px; text-align: center;
+    }
+    .confirm-box input:focus { outline: none; border-color: #e94560; }
+    .confirm-btns { display: flex; gap: 10px; }
+    .confirm-btns button {
+      flex: 1; padding: 12px; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+    }
+    .confirm-cancel { background: #0f3460; color: #999; }
+    .confirm-ok { background: #e94560; color: #fff; }
+    .confirm-danger { background: #e94560; color: #fff; }
   </style>
 </head>
 <body>
 
   <div id="toast" class="toast"></div>
+  <div id="confirmOverlay" class="confirm-overlay" style="display:none;"></div>
 
   <!-- Setup Screen -->
   <div id="setup" class="setup-screen">
@@ -614,52 +314,67 @@
   <div id="app" class="app-screen" style="display:none;">
     <header>
       <h1>Grocery List</h1>
-      <div style="display:flex;align-items:center;gap:10px;">
+      <div class="header-right">
+        <button class="refresh-btn" id="refreshBtn" onclick="refreshList()">
+          <svg viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        </button>
         <select id="speaker" class="speaker-select"></select>
-        <button class="settings-btn" onclick="openSettings()">
+        <button class="settings-btn" id="settingsGear" onclick="openSettings()">
           <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96a7.04 7.04 0 00-1.62-.94l-.36-2.54a.48.48 0 00-.48-.41h-3.84a.48.48 0 00-.48.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87a.48.48 0 00.12.61l2.03 1.58c-.04.31-.06.63-.06.94 0 .31.02.63.06.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.26.41.48.41h3.84c.24 0 .44-.17.48-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1112 8.4a3.6 3.6 0 010 7.2z"/></svg>
-          </button>
+        </button>
       </div>
     </header>
 
     <!-- Settings Panel -->
-    <div id="settingsPanel" class="settings-panel" style="display:none;">
-      <div class="settings-header">
+    <div id="settingsPanel" class="panel" style="display:none;">
+      <div class="panel-header">
         <h2>Settings</h2>
-        <button class="settings-close" onclick="closeSettings()">&times;</button>
+        <button class="panel-close" onclick="closeSettings()">&times;</button>
       </div>
-
-      <div class="settings-section">
-        <label class="settings-label">Family Members</label>
-        <div id="speakerList" class="speaker-list"></div>
-        <div class="add-speaker-row">
-          <input type="text" id="newSpeakerInput" class="text-input" placeholder="Add a name..." style="border-radius:10px;">
-          <button class="add-speaker-btn" onclick="addSpeaker()">Add</button>
+      <div class="panel-body">
+        <div class="settings-section">
+          <label class="settings-label">Family Members</label>
+          <div id="speakerList" class="speaker-list"></div>
+          <div class="add-speaker-row">
+            <input type="text" id="newSpeakerInput" class="text-input" placeholder="Add a name..." style="border-radius:10px;">
+            <button class="add-speaker-btn" onclick="addSpeaker()">Add</button>
+          </div>
         </div>
-      </div>
-
-      <div class="settings-section" style="margin-top:32px;border-top:1px solid #0f3460;padding-top:20px;">
-        <label class="settings-label" style="color:#777;">Connection</label>
-        <button class="logout-btn" onclick="clearSetup()">Log Out</button>
-        <p style="font-size:12px;color:#555;margin-top:8px;">This will clear your saved login. You will need the family password to reconnect.</p>
+        <div class="settings-section" style="margin-top:32px;border-top:1px solid #0f3460;padding-top:20px;">
+          <label class="settings-label" style="color:#777;">Connection</label>
+          <button class="logout-btn" onclick="clearSetup()">Log Out</button>
+          <p style="font-size:12px;color:#555;margin-top:8px;">This will clear your saved login. You will need the family password to reconnect.</p>
+        </div>
       </div>
     </div>
 
     <div id="statsBar" class="stats-bar" style="display:none;" onclick="openInventory()"></div>
 
     <!-- Inventory Panel -->
-    <div id="inventoryPanel" class="inventory-panel" style="display:none;">
-      <div class="inventory-header">
+    <div id="inventoryPanel" class="panel panel-flex" style="display:none;">
+      <div class="panel-header">
         <h2>Inventory</h2>
-        <button class="inventory-close" onclick="closeInventory()">&times;</button>
+        <button class="panel-close" onclick="closeInventory()">&times;</button>
       </div>
       <div class="inventory-tabs">
         <button class="inventory-tab active" onclick="switchInvTab('all', this)">All Items</button>
         <button class="inventory-tab" onclick="switchInvTab('dislikes', this)">Dislikes</button>
       </div>
-      <div id="inventoryList" class="inventory-list">
-        <div class="empty-state"><p>Loading...</p></div>
+      <div id="inventoryList" class="inventory-list"></div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="panel panel-flex" style="display:none;">
+      <div class="panel-header">
+        <h2>Admin</h2>
+        <button class="panel-close" onclick="closeAdmin()">&times;</button>
       </div>
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchAdminTab('items', this)">Items</button>
+        <button class="admin-tab" onclick="switchAdminTab('list', this)">Shopping List</button>
+        <button class="admin-tab" onclick="switchAdminTab('history', this)">History</button>
+      </div>
+      <div id="adminList" class="inventory-list"></div>
     </div>
 
     <div id="listContainer" class="list-container">
@@ -676,7 +391,7 @@
         <button id="micBtn" class="mic-btn" onclick="toggleMic()">
           <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
         </button>
-        <button class="send-btn" onclick="sendText()">
+        <button id="sendBtn" class="send-btn" onclick="sendText()">
           <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
         </button>
       </div>
@@ -685,10 +400,14 @@
 
   <script>
     const AUTH_URL = 'https://automations.maplelinkservices.com/webhook/grocery-auth';
+    const ADMIN_URL = 'https://automations.maplelinkservices.com/webhook/grocery-admin';
     const BASE_URL = 'https://automations.maplelinkservices.com/webhook';
     let API_KEY = localStorage.getItem('grocery_api_key');
     let recognition = null;
     let isListening = false;
+    let isSending = false;
+    let isAdmin = localStorage.getItem('grocery_admin') === 'true';
+    let dislikeCache = {}; // item name -> dislike info, loaded from inventory
 
     const DEFAULT_SPEAKERS = ['ryan', 'veronica'];
 
@@ -696,17 +415,15 @@
       const stored = localStorage.getItem('grocery_speakers');
       return stored ? JSON.parse(stored) : DEFAULT_SPEAKERS;
     }
-
-    function saveSpeakers(list) {
-      localStorage.setItem('grocery_speakers', JSON.stringify(list));
-    }
+    function saveSpeakers(list) { localStorage.setItem('grocery_speakers', JSON.stringify(list)); }
 
     function renderSpeakerDropdown() {
       const select = document.getElementById('speaker');
       const current = select.value;
       const speakers = getSpeakers();
       select.innerHTML = speakers.map(s =>
-        '<option value="' + esc(s) + '"' + (s === current ? ' selected' : '') + '>' + esc(s.charAt(0).toUpperCase() + s.slice(1)) + '</option>'
+        '<option value="' + esc(s) + '"' + (s === current ? ' selected' : '') + '>' +
+        esc(s.charAt(0).toUpperCase() + s.slice(1)) + '</option>'
       ).join('');
     }
 
@@ -744,14 +461,8 @@
       renderSpeakerDropdown();
     }
 
-    function openSettings() {
-      renderSpeakerList();
-      document.getElementById('settingsPanel').style.display = 'block';
-    }
-
-    function closeSettings() {
-      document.getElementById('settingsPanel').style.display = 'none';
-    }
+    function openSettings() { renderSpeakerList(); document.getElementById('settingsPanel').style.display = 'block'; }
+    function closeSettings() { document.getElementById('settingsPanel').style.display = 'none'; }
 
     function init() {
       if (API_KEY) {
@@ -759,6 +470,7 @@
         document.getElementById('app').style.display = 'flex';
         renderSpeakerDropdown();
         loadList();
+        loadDislikeCache();
       }
     }
 
@@ -767,7 +479,6 @@
       const errEl = document.getElementById('authError');
       if (!pw) { errEl.textContent = 'Enter the family password'; errEl.style.display = 'block'; return; }
       errEl.style.display = 'none';
-
       try {
         const res = await fetch(AUTH_URL, {
           method: 'POST',
@@ -790,12 +501,13 @@
     }
 
     function clearSetup() {
-      if (!confirm('Reset connection? You will need to enter the family password again.')) return;
+      if (!confirm('Reset connection? You will need the family password to reconnect.')) return;
       localStorage.removeItem('grocery_api_key');
+      localStorage.removeItem('grocery_admin');
       location.reload();
     }
 
-    // Stats
+    // --- Stats ---
     async function loadStats() {
       try {
         const res = await fetch(BASE_URL + '/grocery-stats', {
@@ -805,9 +517,7 @@
         const data = await res.json();
         renderStatsBar(data);
         return data;
-      } catch (e) {
-        return null;
-      }
+      } catch (e) { return null; }
     }
 
     function renderStatsBar(stats) {
@@ -818,23 +528,38 @@
       if (stats.purchased_count > 0) parts.push(stats.purchased_count + ' purchased');
       if (stats.dislike_count > 0) parts.push(stats.dislike_count + ' disliked');
       if (parts.length) {
-        bar.textContent = parts.join('  ·  ');
+        bar.innerHTML = parts.join('  &middot;  ') + '<br><span class="stats-hint">Tap to view inventory</span>';
         bar.style.display = 'block';
       } else {
         bar.style.display = 'none';
       }
     }
 
-    // List
+    // --- Dislike cache (for shopping list warnings) ---
+    async function loadDislikeCache() {
+      try {
+        const res = await fetch(BASE_URL + '/grocery-inventory', {
+          headers: { 'Authorization': API_KEY },
+          signal: AbortSignal.timeout(10000)
+        });
+        const data = await res.json();
+        dislikeCache = {};
+        (data.items || []).forEach(item => {
+          if (item.dislikes && item.dislikes.length > 0) {
+            const names = [...new Set(item.dislikes.map(d => d.added_by))].join(', ');
+            dislikeCache[item.name.toLowerCase()] = names;
+          }
+        });
+      } catch (e) {}
+    }
+
+    // --- List ---
     async function loadList() {
-      // Check stats first -- if list is empty, skip the list call
-      // (n8n times out when Postgres returns zero rows)
       const stats = await loadStats();
       if (stats && stats.list_count === 0) {
         renderList([]);
         return;
       }
-
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 10000);
       try {
@@ -849,6 +574,15 @@
         clearTimeout(timeout);
         renderList([]);
       }
+    }
+
+    function refreshList() {
+      const btn = document.getElementById('refreshBtn');
+      btn.classList.add('spinning');
+      loadList().then(() => {
+        loadDislikeCache();
+        setTimeout(() => btn.classList.remove('spinning'), 600);
+      });
     }
 
     function renderList(items) {
@@ -874,31 +608,35 @@
       container.innerHTML = sorted.map(cat => `
         <div class="category-group">
           <div class="category-label">${cat}</div>
-          ${grouped[cat].map(item => `
+          ${grouped[cat].map(item => {
+            const dw = dislikeCache[(item.name || '').toLowerCase()];
+            return `
             <div class="item-card" id="item-${item.id}">
-              <div class="item-check" onclick="markPurchased(${item.id}, this)"></div>
+              <div class="item-check" onclick="confirmPurchase(${item.id}, this)"></div>
               <div class="item-info">
                 <div class="item-name">${esc(item.name)}</div>
                 <div class="item-meta">Added by ${esc(item.added_by)}</div>
+                ${dw ? '<div class="item-dislike-warning">Disliked by ' + esc(dw) + '</div>' : ''}
               </div>
               <div class="item-qty">${esc(item.quantity)}</div>
             </div>
-          `).join('')}
+          `}).join('')}
         </div>
       `).join('');
+    }
+
+    // --- UX Fix #5: Confirm before marking purchased ---
+    function confirmPurchase(id, el) {
+      showConfirm('Mark as purchased?', () => markPurchased(id, el));
     }
 
     async function markPurchased(id, el) {
       el.classList.add('checked');
       el.closest('.item-card').classList.add('purchased');
-
       try {
         await fetch(BASE_URL + '/grocery-purchase', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': API_KEY
-          },
+          headers: { 'Content-Type': 'application/json', 'Authorization': API_KEY },
           body: JSON.stringify({
             shopping_list_id: id,
             speaker: document.getElementById('speaker').value
@@ -907,10 +645,8 @@
         setTimeout(() => {
           const card = document.getElementById('item-' + id);
           if (card) card.remove();
-          // check if any items left
           const cards = document.querySelectorAll('.item-card');
           if (!cards.length) renderList([]);
-          // clean empty categories
           document.querySelectorAll('.category-group').forEach(g => {
             if (!g.querySelector('.item-card')) g.remove();
           });
@@ -923,24 +659,17 @@
       }
     }
 
-    // Voice
+    // --- Voice ---
     function toggleMic() {
-      if (isListening) {
-        recognition.stop();
-        return;
-      }
-
+      if (isListening) { recognition.stop(); return; }
       if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        toast('Voice not supported in this browser');
-        return;
+        toast('Voice not supported in this browser'); return;
       }
-
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognition = new SpeechRecognition();
       recognition.continuous = false;
       recognition.interimResults = true;
       recognition.lang = 'en-US';
-
       const transcriptEl = document.getElementById('transcript');
       const micBtn = document.getElementById('micBtn');
 
@@ -950,36 +679,28 @@
         transcriptEl.classList.add('active');
         transcriptEl.textContent = 'Listening...';
       };
-
       recognition.onresult = (e) => {
         let text = '';
-        for (let i = 0; i < e.results.length; i++) {
-          text += e.results[i][0].transcript;
-        }
+        for (let i = 0; i < e.results.length; i++) text += e.results[i][0].transcript;
         transcriptEl.textContent = text;
       };
-
       recognition.onend = () => {
         isListening = false;
         micBtn.classList.remove('listening');
         const text = transcriptEl.textContent;
-        if (text && text !== 'Listening...') {
-          sendToBackend(text);
-        }
-        setTimeout(() => transcriptEl.classList.remove('active'), 2000);
+        if (text && text !== 'Listening...') sendToBackend(text);
+        else transcriptEl.classList.remove('active');
       };
-
       recognition.onerror = (e) => {
         isListening = false;
         micBtn.classList.remove('listening');
         transcriptEl.classList.remove('active');
         if (e.error !== 'no-speech') toast('Mic error: ' + e.error);
       };
-
       recognition.start();
     }
 
-    // Text input
+    // --- Text input ---
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('textInput').addEventListener('keydown', (e) => {
         if (e.key === 'Enter') { e.preventDefault(); sendText(); }
@@ -990,9 +711,19 @@
       document.getElementById('passwordInput').addEventListener('keydown', (e) => {
         if (e.key === 'Enter') { e.preventDefault(); authenticate(); }
       });
+
+      // Long-press gear for admin
+      let pressTimer = null;
+      const gear = document.getElementById('settingsGear');
+      gear.addEventListener('pointerdown', () => {
+        pressTimer = setTimeout(() => { pressTimer = null; promptAdmin(); }, 2000);
+      });
+      gear.addEventListener('pointerup', () => { if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; } });
+      gear.addEventListener('pointerleave', () => { if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; } });
     });
 
     function sendText() {
+      if (isSending) return;
       const input = document.getElementById('textInput');
       const text = input.value.trim();
       if (!text) return;
@@ -1000,34 +731,44 @@
       sendToBackend(text);
     }
 
+    // --- UX Fix #4: Better processing feedback ---
     async function sendToBackend(text) {
-      toast('<span class="loading-spinner"></span>Adding items...');
+      if (isSending) return;
+      isSending = true;
+      const micBtn = document.getElementById('micBtn');
+      const sendBtn = document.getElementById('sendBtn');
+      const transcriptEl = document.getElementById('transcript');
+      micBtn.classList.add('processing');
+      sendBtn.classList.add('disabled');
+      transcriptEl.classList.add('active');
+      transcriptEl.innerHTML = '<span class="loading-spinner"></span> Processing: "' + esc(text) + '"';
+
       try {
         const res = await fetch(BASE_URL + '/grocery-voice', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': API_KEY
-          },
-          body: JSON.stringify({
-            text: text,
-            speaker: document.getElementById('speaker').value
-          })
+          headers: { 'Content-Type': 'application/json', 'Authorization': API_KEY },
+          body: JSON.stringify({ text, speaker: document.getElementById('speaker').value })
         });
         const data = await res.json();
         if (data.success && data.items) {
           const names = data.items.map(i => i.name).join(', ');
           toast('Added: ' + names);
           loadList();
+          loadDislikeCache();
         } else {
           toast(data.error || 'Something went wrong');
         }
       } catch (e) {
         toast('Network error. Check connection.');
+      } finally {
+        isSending = false;
+        micBtn.classList.remove('processing');
+        sendBtn.classList.remove('disabled');
+        setTimeout(() => transcriptEl.classList.remove('active'), 2000);
       }
     }
 
-    // Inventory
+    // --- Inventory ---
     let inventoryData = [];
     let currentInvTab = 'all';
 
@@ -1036,8 +777,7 @@
       document.getElementById('inventoryList').innerHTML = '<div class="empty-state"><p>Loading...</p></div>';
       try {
         const res = await fetch(BASE_URL + '/grocery-inventory', {
-          headers: { 'Authorization': API_KEY },
-          signal: AbortSignal.timeout(10000)
+          headers: { 'Authorization': API_KEY }, signal: AbortSignal.timeout(10000)
         });
         const data = await res.json();
         inventoryData = data.items || [];
@@ -1046,10 +786,7 @@
         document.getElementById('inventoryList').innerHTML = '<div class="empty-state"><p>Could not load inventory.</p></div>';
       }
     }
-
-    function closeInventory() {
-      document.getElementById('inventoryPanel').style.display = 'none';
-    }
+    function closeInventory() { document.getElementById('inventoryPanel').style.display = 'none'; }
 
     function switchInvTab(tab, btn) {
       currentInvTab = tab;
@@ -1061,7 +798,6 @@
     function renderInventory() {
       const list = document.getElementById('inventoryList');
       let items = inventoryData;
-
       if (currentInvTab === 'dislikes') {
         items = items.filter(i => i.dislikes && i.dislikes.length > 0);
         if (!items.length) {
@@ -1069,25 +805,21 @@
           return;
         }
       }
-
       if (!items.length) {
         list.innerHTML = '<div class="empty-state"><p>No items tracked yet.</p></div>';
         return;
       }
-
       const grouped = {};
       items.forEach(item => {
         const cat = item.category || 'uncategorized';
         if (!grouped[cat]) grouped[cat] = [];
         grouped[cat].push(item);
       });
-
       const order = ['produce','dairy','meat','bakery','frozen','pantry','snacks','beverages','household','uncategorized'];
       const sorted = Object.keys(grouped).sort((a, b) => {
         const ai = order.indexOf(a), bi = order.indexOf(b);
         return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
       });
-
       list.innerHTML = sorted.map(cat => `
         <div class="category-group">
           <div class="category-label">${cat}</div>
@@ -1097,7 +829,6 @@
             if (status === 'out') badge = '<span class="inv-item-badge badge-out">Out</span>';
             else if (status === 'low') badge = '<span class="inv-item-badge badge-low">Low</span>';
             else badge = '<span class="inv-item-badge badge-ok">Stocked</span>';
-
             let dislikeHtml = '';
             if (item.dislikes && item.dislikes.length > 0) {
               const names = [...new Set(item.dislikes.map(d => d.added_by))];
@@ -1107,7 +838,6 @@
               if (notes.length) dislikeHtml += '<br>' + notes.map(n => '"' + esc(n) + '"').join(', ');
               dislikeHtml += '</div>';
             }
-
             const purchased = item.times_purchased || 0;
             return `
               <div class="inv-item">
@@ -1115,7 +845,7 @@
                   <span class="inv-item-name">${esc(item.name)}</span>
                   ${badge}
                 </div>
-                <div class="inv-item-detail">Purchased ${purchased} time${purchased !== 1 ? 's' : ''}${item.status_updated_by ? ' · Last updated by ' + esc(item.status_updated_by) : ''}</div>
+                <div class="inv-item-detail">Purchased ${purchased} time${purchased !== 1 ? 's' : ''}${item.status_updated_by ? ' &middot; Last updated by ' + esc(item.status_updated_by) : ''}</div>
                 ${dislikeHtml}
               </div>
             `;
@@ -1124,7 +854,266 @@
       `).join('');
     }
 
-    // Helpers
+    // --- Admin ---
+    let adminData = [];
+    let adminListData = [];
+    let currentAdminTab = 'items';
+
+    function promptAdmin() {
+      if (isAdmin) { openAdmin(); return; }
+      showPrompt('Enter admin PIN', (pin) => {
+        if (pin === '7422') {
+          isAdmin = true;
+          localStorage.setItem('grocery_admin', 'true');
+          toast('Admin mode enabled');
+          openAdmin();
+        } else {
+          toast('Wrong PIN');
+        }
+      });
+    }
+
+    async function openAdmin() {
+      document.getElementById('adminPanel').style.display = 'flex';
+      await loadAdminData();
+    }
+    function closeAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
+
+    function switchAdminTab(tab, btn) {
+      currentAdminTab = tab;
+      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      renderAdmin();
+    }
+
+    async function loadAdminData() {
+      document.getElementById('adminList').innerHTML = '<div class="empty-state"><p>Loading...</p></div>';
+      try {
+        const [invRes, listRes] = await Promise.all([
+          fetch(BASE_URL + '/grocery-inventory', {
+            headers: { 'Authorization': API_KEY }, signal: AbortSignal.timeout(10000)
+          }),
+          fetch(BASE_URL + '/grocery-list', {
+            headers: { 'Authorization': API_KEY }, signal: AbortSignal.timeout(10000)
+          }).catch(() => null)
+        ]);
+        const invData = await invRes.json();
+        adminData = invData.items || [];
+        if (listRes && listRes.ok) {
+          const ld = await listRes.json();
+          adminListData = ld.items || [];
+        } else {
+          adminListData = [];
+        }
+        renderAdmin();
+      } catch (e) {
+        document.getElementById('adminList').innerHTML = '<div class="empty-state"><p>Could not load data.</p></div>';
+      }
+    }
+
+    function renderAdmin() {
+      const list = document.getElementById('adminList');
+      if (currentAdminTab === 'items') {
+        if (!adminData.length) { list.innerHTML = '<div class="empty-state"><p>No items.</p></div>'; return; }
+        list.innerHTML = adminData.map(item => `
+          <div class="admin-item">
+            <div class="admin-item-info">
+              <div class="admin-item-name">${esc(item.name)}</div>
+              <div class="admin-item-meta">${esc(item.category)} &middot; ${item.times_purchased || 0} purchases</div>
+            </div>
+            <div class="admin-actions">
+              <button class="admin-btn admin-btn-edit" data-id="${item.id}" data-action="edit">Edit</button>
+              <button class="admin-btn admin-btn-delete" data-id="${item.id}" data-action="delete">Delete</button>
+            </div>
+          </div>
+        `).join('');
+        list.querySelectorAll('[data-action="edit"]').forEach(btn => {
+          btn.onclick = () => {
+            const item = adminData.find(i => i.id === Number(btn.dataset.id));
+            if (item) adminEditItem(item.id, item.name, item.category);
+          };
+        });
+        list.querySelectorAll('[data-action="delete"]').forEach(btn => {
+          btn.onclick = () => {
+            const item = adminData.find(i => i.id === Number(btn.dataset.id));
+            if (item) adminDeleteItem(item.id, item.name);
+          };
+        });
+      } else if (currentAdminTab === 'list') {
+        if (!adminListData.length) {
+          list.innerHTML = '<div class="empty-state"><p>Shopping list is empty.</p></div>';
+          return;
+        }
+        list.innerHTML = adminListData.map(item => `
+          <div class="admin-item">
+            <div class="admin-item-info">
+              <div class="admin-item-name">${esc(item.name)}</div>
+              <div class="admin-item-meta">${esc(item.quantity)} &middot; added by ${esc(item.added_by)}</div>
+            </div>
+            <div class="admin-actions">
+              <button class="admin-btn admin-btn-remove" data-id="${item.id}" data-action="remove">Remove</button>
+            </div>
+          </div>
+        `).join('');
+        list.querySelectorAll('[data-action="remove"]').forEach(btn => {
+          btn.onclick = () => {
+            const item = adminListData.find(i => i.id === Number(btn.dataset.id));
+            if (item) adminRemoveFromList(item.id, item.name);
+          };
+        });
+      } else if (currentAdminTab === 'history') {
+        const withDislikes = adminData.filter(i => i.dislikes && i.dislikes.length > 0);
+        if (!withDislikes.length) {
+          list.innerHTML = '<div class="empty-state"><p>No dislikes to manage.</p></div>';
+          return;
+        }
+        list.innerHTML = withDislikes.map(item => `
+          <div class="admin-item">
+            <div class="admin-item-info">
+              <div class="admin-item-name">${esc(item.name)}</div>
+              <div class="admin-item-meta">${item.dislikes.length} dislike(s) &middot; by ${[...new Set(item.dislikes.map(d => d.added_by))].join(', ')}</div>
+            </div>
+            <div class="admin-actions">
+              <button class="admin-btn admin-btn-clear" data-id="${item.id}" data-action="clear">Clear</button>
+            </div>
+          </div>
+        `).join('');
+        list.querySelectorAll('[data-action="clear"]').forEach(btn => {
+          btn.onclick = () => {
+            const item = adminData.find(i => i.id === Number(btn.dataset.id));
+            if (item) adminClearDislikes(item.id, item.name);
+          };
+        });
+      }
+    }
+
+    async function adminDeleteItem(id, name) {
+      showConfirm('Delete "' + esc(name) + '" and all its history?', async () => {
+        try {
+          await fetch(ADMIN_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': API_KEY },
+            body: JSON.stringify({ action: 'delete_item', item_id: id })
+          });
+          toast('Deleted ' + name);
+          await loadAdminData();
+          loadDislikeCache();
+        } catch (e) { toast('Failed to delete'); }
+      });
+    }
+
+    function adminEditItem(id, name, category) {
+      showEditPrompt(name, category, async (newName, newCategory) => {
+        try {
+          await fetch(ADMIN_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': API_KEY },
+            body: JSON.stringify({ action: 'edit_item', item_id: id, name: newName, category: newCategory })
+          });
+          toast('Updated');
+          await loadAdminData();
+        } catch (e) { toast('Failed to update'); }
+      });
+    }
+
+    async function adminClearDislikes(itemId, name) {
+      showConfirm('Clear all dislikes for "' + esc(name) + '"?', async () => {
+        try {
+          await fetch(ADMIN_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': API_KEY },
+            body: JSON.stringify({ action: 'clear_dislikes', item_id: itemId })
+          });
+          toast('Dislikes cleared for ' + name);
+          await loadAdminData();
+          loadDislikeCache();
+        } catch (e) { toast('Failed to clear'); }
+      });
+    }
+
+    async function adminRemoveFromList(id, name) {
+      showConfirm('Remove "' + esc(name) + '" from shopping list?', async () => {
+        try {
+          await fetch(ADMIN_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': API_KEY },
+            body: JSON.stringify({ action: 'remove_from_list', shopping_list_id: id })
+          });
+          toast('Removed ' + name);
+          await loadAdminData();
+          loadList();
+        } catch (e) { toast('Failed to remove'); }
+      });
+    }
+
+    // --- Confirm / Prompt dialogs ---
+    function showConfirm(msg, onOk) {
+      const overlay = document.getElementById('confirmOverlay');
+      overlay.innerHTML = `
+        <div class="confirm-box">
+          <p>${msg}</p>
+          <div class="confirm-btns">
+            <button class="confirm-cancel" onclick="dismissConfirm()">Cancel</button>
+            <button class="confirm-ok" id="confirmOkBtn">Yes</button>
+          </div>
+        </div>`;
+      overlay.style.display = 'flex';
+      document.getElementById('confirmOkBtn').onclick = () => { dismissConfirm(); onOk(); };
+    }
+
+    function showPrompt(msg, onOk) {
+      const overlay = document.getElementById('confirmOverlay');
+      overlay.innerHTML = `
+        <div class="confirm-box">
+          <p>${msg}</p>
+          <input type="password" id="promptInput" autocomplete="off">
+          <div class="confirm-btns">
+            <button class="confirm-cancel" onclick="dismissConfirm()">Cancel</button>
+            <button class="confirm-ok" id="promptOkBtn">OK</button>
+          </div>
+        </div>`;
+      overlay.style.display = 'flex';
+      document.getElementById('promptInput').focus();
+      document.getElementById('promptInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); document.getElementById('promptOkBtn').click(); }
+      });
+      document.getElementById('promptOkBtn').onclick = () => {
+        const val = document.getElementById('promptInput').value.trim();
+        dismissConfirm();
+        if (val) onOk(val);
+      };
+    }
+
+    function showEditPrompt(name, category, onOk) {
+      const cats = ['produce','dairy','meat','bakery','frozen','pantry','snacks','beverages','household','uncategorized'];
+      const overlay = document.getElementById('confirmOverlay');
+      overlay.innerHTML = `
+        <div class="confirm-box" style="text-align:left;">
+          <p style="text-align:center;">Edit Item</p>
+          <label style="font-size:12px;color:#777;">Name</label>
+          <input type="text" id="editName" value="${esc(name)}" style="margin-bottom:12px;">
+          <label style="font-size:12px;color:#777;">Category</label>
+          <select id="editCategory" style="width:100%;padding:10px;background:#0f3460;border:1px solid #533483;border-radius:8px;color:#e0e0e0;font-size:16px;margin-bottom:16px;">
+            ${cats.map(c => '<option value="' + c + '"' + (c === category ? ' selected' : '') + '>' + c + '</option>').join('')}
+          </select>
+          <div class="confirm-btns">
+            <button class="confirm-cancel" onclick="dismissConfirm()">Cancel</button>
+            <button class="confirm-ok" id="editOkBtn">Save</button>
+          </div>
+        </div>`;
+      overlay.style.display = 'flex';
+      document.getElementById('editName').focus();
+      document.getElementById('editOkBtn').onclick = () => {
+        const n = document.getElementById('editName').value.trim();
+        const c = document.getElementById('editCategory').value;
+        dismissConfirm();
+        if (n) onOk(n, c);
+      };
+    }
+
+    function dismissConfirm() { document.getElementById('confirmOverlay').style.display = 'none'; }
+
+    // --- Helpers ---
     function toast(msg) {
       const el = document.getElementById('toast');
       el.innerHTML = msg;
