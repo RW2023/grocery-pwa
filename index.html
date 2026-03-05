@@ -712,14 +712,14 @@
         if (e.key === 'Enter') { e.preventDefault(); authenticate(); }
       });
 
-      // Long-press gear for admin
+      // Long-press title for admin
       let pressTimer = null;
-      const gear = document.getElementById('settingsGear');
-      gear.addEventListener('pointerdown', () => {
-        pressTimer = setTimeout(() => { pressTimer = null; promptAdmin(); }, 2000);
+      const title = document.querySelector('header h1');
+      title.addEventListener('pointerdown', () => {
+        pressTimer = setTimeout(() => { pressTimer = null; promptAdmin(); }, 1000);
       });
-      gear.addEventListener('pointerup', () => { if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; } });
-      gear.addEventListener('pointerleave', () => { if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; } });
+      title.addEventListener('pointerup', () => { if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; } });
+      title.addEventListener('pointerleave', () => { if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; } });
     });
 
     function sendText() {
