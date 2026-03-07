@@ -4,6 +4,10 @@
 
 ![Inventory](screenshot-inventory.png)
 
+### Backend (n8n)
+
+![Backend Workflow](screenshot-backend.png)
+
 A voice-powered family grocery list app. Add items by speaking, track inventory, and manage shared shopping lists across the household.
 
 **Live:** [grocery-pwa-iota.vercel.app](https://grocery-pwa-iota.vercel.app)
