@@ -1,5 +1,7 @@
 # Grocery List PWA
 
+![Screenshot](screenshot.png)
+
 A voice-powered family grocery list app. Add items by speaking, track inventory, and manage shared shopping lists across the household.
 
 **Live:** [grocery-pwa-iota.vercel.app](https://grocery-pwa-iota.vercel.app)
