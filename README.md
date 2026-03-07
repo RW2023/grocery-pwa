@@ -1,6 +1,8 @@
 # Grocery List PWA
 
-![Screenshot](screenshot.png)
+![App](screenshot-app.png)
+
+![Inventory](screenshot-inventory.png)
 
 A voice-powered family grocery list app. Add items by speaking, track inventory, and manage shared shopping lists across the household.
 
