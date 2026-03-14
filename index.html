@@ -327,7 +327,8 @@
     }
     .inv-item-header { display: flex; justify-content: space-between; align-items: center; }
     .inv-item-name { font-size: 16px; font-weight: 500; text-transform: capitalize; }
-    .inv-item-badge { font-size: 11px; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+    .inv-item-badge { font-size: 11px; padding: 3px 10px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; user-select: none; }
+    .inv-item-badge:active { transform: scale(0.9); }
     .badge-out { background: #fce4e4; color: #e74c3c; }
     .badge-low { background: #fef3cd; color: #b8860b; }
     .badge-ok { background: var(--bg-badge-ok); color: var(--text-badge-ok); }
@@ -952,11 +953,11 @@
         <div class="category-group">
           <div class="category-label">${cat}</div>
           ${grouped[cat].map(item => {
-            const status = item.inventory_status;
+            const status = item.inventory_status || 'out';
             let badge = '';
-            if (status === 'out') badge = '<span class="inv-item-badge badge-out">Out</span>';
-            else if (status === 'low') badge = '<span class="inv-item-badge badge-low">Low</span>';
-            else badge = '<span class="inv-item-badge badge-ok">Stocked</span>';
+            if (status === 'out') badge = `<span class="inv-item-badge badge-out" onclick="cycleStatus(${item.id}, 'out', this)">Out</span>`;
+            else if (status === 'low') badge = `<span class="inv-item-badge badge-low" onclick="cycleStatus(${item.id}, 'low', this)">Low</span>`;
+            else badge = `<span class="inv-item-badge badge-ok" onclick="cycleStatus(${item.id}, 'stocked', this)">Stocked</span>`;
             let dislikeHtml = '';
             if (item.dislikes && item.dislikes.length > 0) {
               const names = [...new Set(item.dislikes.map(d => d.added_by))];
@@ -980,6 +981,38 @@
           }).join('')}
         </div>
       `).join('');
+    }
+
+    // --- Inventory Status Cycling ---
+    async function cycleStatus(itemId, current, el) {
+      const cycle = { stocked: 'low', low: 'out', out: 'stocked' };
+      const newStatus = cycle[current];
+      const speaker = document.getElementById('speaker').value;
+
+      // Update badge immediately for responsive feel
+      el.className = 'inv-item-badge badge-' + (newStatus === 'stocked' ? 'ok' : newStatus);
+      el.textContent = newStatus === 'stocked' ? 'Stocked' : newStatus === 'low' ? 'Low' : 'Out';
+      el.setAttribute('onclick', `cycleStatus(${itemId}, '${newStatus}', this)`);
+
+      try {
+        const res = await fetch(BASE_URL + '/grocery-inventory-update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': API_KEY },
+          body: JSON.stringify({ item_id: itemId, status: newStatus, speaker: speaker })
+        });
+        const data = await res.json();
+        if (data.added_to_list) {
+          toast(esc(data.item_name) + ' added to shopping list');
+        } else {
+          toast('Status updated to ' + newStatus);
+        }
+      } catch (e) {
+        // Revert on failure
+        el.className = 'inv-item-badge badge-' + (current === 'stocked' ? 'ok' : current);
+        el.textContent = current === 'stocked' ? 'Stocked' : current === 'low' ? 'Low' : 'Out';
+        el.setAttribute('onclick', `cycleStatus(${itemId}, '${current}', this)`);
+        toast('Failed to update status');
+      }
     }
 
     // --- Admin ---
